@@ -6,6 +6,23 @@ set -e
 # ... "as a general rule, /dev/urandom should be used for everything except long-lived GPG/SSL/SSH keys" ...
 find /usr/lib/jvm -type f -name java.security | xargs sed -i "s#^\s*securerandom.source=file:.*#securerandom.source=file:${CORE_SECURE_RANDOM_SOURCE:-/dev/urandom}#g"
 
+set -x
+
+# Prepare for 1M-TPS
+apk add --no-cache --update curl
+
+if [ ! -e ./etc/node.key ]; then
+    SHARD_SEED=$(dd status=none if=/dev/urandom count=32 bs=1 | base64)
+    SHARD_CFG=$(curl -sf "http://$CORE_EXPLORER_IP:8080/shard?seed=$SHARD_SEED")
+    ANCHOR_POINT=$(echo $SHARD_CFG | awk '{print $1}')
+    NODE_KEY_RANGE=$(echo $SHARD_CFG | awk '{print $2}')
+    CHUNK_RANGE=$(echo $SHARD_CFG | awk '{print $3}')
+    ./bin/generate_node_key "$ANCHOR_POINT" "$NODE_KEY_RANGE" ./etc/node.key
+    chown radix:radix ./etc/node.key
+fi
+
+set +x
+
 # apply templating
 cat >./etc/default.config <<EOF
 api.url=/api
@@ -15,6 +32,7 @@ network.discovery.allow_tls_bypass=${CORE_NETWORK_ALLOW_TLS_BYPASS:-0}
 network.discovery.urls=$CORE_NETWORK_DISCOVERY_URLS
 network.seeds=$CORE_NETWORK_SEEDS
 ntp=true
+debug.nopow=true
 ntp.pool=pool.ntp.org
 partition.fragments=$CORE_PARTITION_FRAGMENTS
 universe=$CORE_UNIVERSE
@@ -22,6 +40,8 @@ universe.lurking=${CORE_UNIVERSE_LURKING:-0}
 universe.witness=${CORE_UNIVERSE_WITNESS:-0}
 universe.witnesses=$CORE_UNIVERSE_WITNESSES
 node.key.path=./etc/node.key
+pump.atoms=${CORE_PUMP_ATOMS_URL}
+shards.range=$CHUNK_RANGE
 # NOTE: keep this disabled on a public network otherwise your node will get DoS attacked
 spamathon.enabled=${CORE_SPAMATHON_ENABLED:-false}
 EOF
@@ -56,4 +76,26 @@ if [ "$ENABLE_IPTABLES_RULES" = yes ]; then
     /sbin/iptables-restore < /etc/iptables/iptables.rules
 fi
 
-exec /sbin/su-exec radix:radix "$@"
+# set -x
+
+# # Download file from google drive
+# ggURL='https://drive.google.com/uc?export=download'  
+# filename="$(curl -sc /tmp/gcokie "${ggURL}&id=${ggID}" | grep -o '="uc-name.*</span>' | sed 's/.*">//;s/<.a> .*//')"  
+# getcode="$(awk '/_warning_/ {print $NF}' /tmp/gcokie)"  
+# curl -Lb /tmp/gcokie "${ggURL}&confirm=${getcode}&id=${ggID}" -o atoms.zst  
+
+# # Decompresses file
+# unzstd -T0 atoms.zst
+
+# Kick off test at TIMETORUNTEST
+sleep_until_time_to_run_test() {
+    local now=$(date +%s)
+    local future=$(date -d "${TIMETORUNTEST}" +%s)
+    [ $future -lt $now ] || sleep $(($future - $now))
+    touch /opt/radixdlt/START_PUMP
+}
+[ -z "$TIMETORUNTEST" ] || sleep_until_time_to_run_test &
+
+# set +x
+
+/sbin/su-exec radix:radix "$@"
