@@ -69,6 +69,7 @@ elif [ $max_mb -gt 3072 ]; then
 else # JVM need at least 3GB Heap - 2GB will run with the occasional OutOfMemoryException
     export JAVA_OPTS="-Xmx2048m $JAVA_OPTS"
 fi
+export JAVA_OPTS="-Djava.library.path=. $JAVA_OPTS"
 
 # load iptables
 # TODO: Need to tweak and test this some more before we can enable it in a public network.
