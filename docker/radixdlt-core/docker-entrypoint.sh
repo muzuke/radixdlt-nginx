@@ -49,6 +49,8 @@ debug.atoms.sync.disable_checksum=true
 # Relevant when mem is >= 16GB
 dB.cache_size=2147483648
 ledger.sync.commit.max=100000
+# disable all sync for debugging
+debug.atoms.sync.disable_inventory=true
 EOF
 
 # make sure that the data partition has correct owner
