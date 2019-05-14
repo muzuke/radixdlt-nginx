@@ -45,7 +45,7 @@ shards.range=$CHUNK_RANGE
 # NOTE: keep this disabled on a public network otherwise your node will get DoS attacked
 spamathon.enabled=${CORE_SPAMATHON_ENABLED:-false}
 # *FIXME* Temporary test hack for checksum issue
-debug.atoms.sync.disable_checksum=true
+#debug.atoms.sync.disable_checksum=true
 # Relevant when mem is >= 16GB
 dB.cache_size=2147483648
 ledger.sync.commit.max=100000
