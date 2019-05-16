@@ -46,7 +46,7 @@ shards.range=$CHUNK_RANGE
 spamathon.enabled=${CORE_SPAMATHON_ENABLED:-false}
 # *FIXME* Temporary test hack for checksum issue
 debug.atoms.sync.disable_checksum=true
-debug.atoms.sync.disable_inventory=true
+#debug.atoms.sync.disable_inventory=true
 # Pumper should only load atoms for first shard
 pump.useSingleShard=true
 # Relevant when mem is >= 16GB
