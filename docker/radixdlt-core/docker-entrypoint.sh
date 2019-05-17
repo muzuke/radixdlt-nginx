@@ -55,6 +55,17 @@ ledger.sync.commit.max=100000
 # disable all sync for debugging
 EOF
 
+# Configure logger
+cat >./logger.config <<EOF
+# Use 30 for no debug, 31 to include debug, 0 for no logging
+logger.atoms.level=31
+logger.general.level=30
+logger.network.level=30
+logger.messaging.level=30
+logger.discovery.level=30
+logger.RTP.level=0
+EOF
+
 # make sure that the data partition has correct owner
 #chown -R radixdlt:radixdlt .
 
