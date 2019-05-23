@@ -48,7 +48,7 @@ spamathon.enabled=${CORE_SPAMATHON_ENABLED:-false}
 debug.atoms.sync.disable_checksum=true
 #debug.atoms.sync.disable_inventory=true
 # Pumper should only load atoms for first shard
-pump.useSingleShard=true
+# pump.useSingleShard=true
 # Relevant when mem is >= 16GB
 dB.cache_size=2147483648
 ledger.sync.commit.max=100000
