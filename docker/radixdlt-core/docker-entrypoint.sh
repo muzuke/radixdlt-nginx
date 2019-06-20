@@ -16,14 +16,25 @@ network.discovery.urls=$CORE_NETWORK_DISCOVERY_URLS
 network.seeds=$CORE_NETWORK_SEEDS
 ntp=true
 ntp.pool=pool.ntp.org
-partition.fragments=$CORE_PARTITION_FRAGMENTS
 universe=$CORE_UNIVERSE
 universe.lurking=${CORE_UNIVERSE_LURKING:-0}
 universe.witness=${CORE_UNIVERSE_WITNESS:-0}
 universe.witnesses=$CORE_UNIVERSE_WITNESSES
 node.key.path=./etc/node.key
+shards.range=${CORE_SHARD_RANGE:-17592186044416}
 # NOTE: keep this disabled on a public network otherwise your node will get DoS attacked
 spamathon.enabled=${CORE_SPAMATHON_ENABLED:-false}
+EOF
+
+# Configure logger
+cat >./logger.config <<EOF
+# Use 30 for no debug, 31 to include debug, 0 for no logging
+logger.atoms.level=${CORE_LOGGER_ATOMS_LEVEL:-30}
+logger.general.level=${CORE_LOGGER_GENERAL_LEVEL:-30}
+logger.network.level=${CORE_LOGGER_NETWORK_LEVEL:-30}
+logger.messaging.level=${CORE_LOGGER_MESSAGING_LEVEL:-30}
+logger.discovery.level=${CORE_LOGGER_DISCOVERY_LEVEL:-30}
+logger.RTP.level=${CORE_LOGGER_RTP_LEVEL:-0}
 EOF
 
 # make sure that the data partition has correct owner
