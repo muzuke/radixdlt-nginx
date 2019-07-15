@@ -1,0 +1,6 @@
+ARG ARCH=amd64
+FROM radixdlt/radixdlt-nginx:latest-$ARCH
+LABEL maintainer="devops@radixdlt.com"
+
+# override configuration
+COPY conf.d/* /etc/nginx/conf.d/
