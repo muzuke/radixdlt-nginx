@@ -204,6 +204,9 @@ http {
 
         include conf.d/error-location.conf;
         include conf.d/nginx-status-location.conf;
+        include conf.d/extra-locations.conf;
     }
+
+    include conf.d/extra-servers.conf;
 }
 
