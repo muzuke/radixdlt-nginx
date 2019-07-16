@@ -41,7 +41,7 @@ universe.witness=${CORE_UNIVERSE_WITNESS:-0}
 universe.witnesses=$CORE_UNIVERSE_WITNESSES
 node.key.path=./etc/node.key
 pump.atoms=${CORE_PUMP_ATOMS_URL}
-pump.startPumpingUrl=${CORE_PUMP_START_URL}
+pump.pollUrl=${CORE_PUMP_START_URL}
 shards.range=$CHUNK_RANGE
 # NOTE: keep this disabled on a public network otherwise your node will get DoS attacked
 spamathon.enabled=${CORE_SPAMATHON_ENABLED:-false}
