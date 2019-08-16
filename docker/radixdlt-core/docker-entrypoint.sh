@@ -13,7 +13,7 @@ apk add --no-cache --update curl
 
 if [ ! -e ./etc/node.key ]; then
     SHARD_SEED=$(dd status=none if=/dev/urandom count=32 bs=1 | base64)
-    SHARD_CFG=$(curl -sf --connect-timeout 5 --max-time 10 --retry 5 --retry-delay 0 --retry-max-time 40 "http://$CORE_EXPLORER_IP:8080/shard?seed=$SHARD_SEED")
+    SHARD_CFG=$(curl -sf --connect-timeout 5 --max-time 36 --retry 5 --retry-delay 0 --retry-max-time 180 "http://$CORE_EXPLORER_IP:8080/shard?seed=$SHARD_SEED")
     ANCHOR_POINT=$(echo $SHARD_CFG | awk '{print $1}')
     NODE_KEY_RANGE=$(echo $SHARD_CFG | awk '{print $2}')
     CHUNK_RANGE=$(echo $SHARD_CFG | awk '{print $3}')
