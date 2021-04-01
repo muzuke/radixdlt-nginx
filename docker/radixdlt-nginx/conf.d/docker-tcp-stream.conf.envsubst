@@ -1,0 +1,9 @@
+stream {
+    resolver "$NGINX_RESOLVER";
+    resolver_timeout 600s;
+    server {
+        listen $NGINX_VALIDATOR_TCP_PORT;
+        proxy_pass $RADIXDLT_VALIDATOR_HOST:$RADIXDLT_VALIDATOR_TCP_PORT;
+    }
+}
+

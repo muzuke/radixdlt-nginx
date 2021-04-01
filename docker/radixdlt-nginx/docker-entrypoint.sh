@@ -17,6 +17,11 @@ if [[ "$RADIXDLT_ENABLE_FAUCET" == true ]];then
   DOLLAR='$' envsubst </etc/nginx/conf.d/faucet-conf.conf.envsubst >/etc/nginx/conf.d/faucet-conf.conf
 fi
 
+if [[ -z "$RADIXDLT_REMOVE_NETWORK_TCP_PROXY" ]]; then
+  export INCLUDE_RADIXDLT_CORE_STREAM="include conf.d/docker-tcp-stream.conf;"
+  DOLLAR='$' envsubst </etc/nginx/conf.d/docker-tcp-stream.conf.envsubst >/etc/nginx/conf.d/docker-tcp-stream.conf
+fi
+
 DOLLAR='$' envsubst </etc/nginx/conf.d/nginx.conf.envsubst >/etc/nginx/nginx.conf
 
 # Generate dhparam.pem if not pre-configured
