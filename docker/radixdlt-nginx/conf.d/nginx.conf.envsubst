@@ -187,6 +187,7 @@ http {
             include conf.d/enable-caching-proxy.conf;
             proxy_cache radixdlt_hot;
             proxy_cache_valid 200 10s;
+            proxy_cache_bypass $cookie_nocache $arg_nocache;
             include conf.d/enable-cors.conf;
         }
 
