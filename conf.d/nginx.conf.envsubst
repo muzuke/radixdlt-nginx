@@ -78,7 +78,6 @@ http {
         }
 
         include conf.d/error-location.conf;
-        include conf.d/nginx-status-location.conf;
         ${INCLUDE_RADIXDLT_FAUCET_ENABLED}
         ${INCLUDE_RADIXDLT_ENABLE_CLIENT_API}
         ${INCLUDE_RADIXDLT_CHAOS_ENABLE}
@@ -86,5 +85,10 @@ http {
         ${INCLUDE_RADIXDLT_ENABLE_SYSTEM_API}
         ${INCLUDE_RADIXDLT_ENABLE_NODE_API}
     }
+     server {
+            listen 9195;
+            server_name localhost;
+            include conf.d/nginx-status-location.conf;
+     }
 }
 
