@@ -6,7 +6,7 @@ all:
 
 
 .PHONY: radixdlt-nginx
-radixdlt-nginx:
+build:
 	docker build \
 		-t $(REGISTRY)/radixdlt-nginx:$(DOCKER_TAG) \
 		-f Dockerfile.alpine .
