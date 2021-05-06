@@ -59,7 +59,7 @@ http {
                         '"server_protocol": "${DOLLAR}server_protocol", ' # request protocol, like HTTP/1.1 or HTTP/2.0
                         '"pipe": "${DOLLAR}pipe", ' # "p" if request was pipelined, "." otherwise
                         '"gzip_ratio": "${DOLLAR}gzip_ratio", '
-                        '"http_cf_ray": "${DOLLAR}http_cf_ray",'
+                        '"http_cf_ray": "${DOLLAR}http_cf_ray"'
                         '}';
 
     sendfile on;
