@@ -5,7 +5,7 @@ all:
     REGISTRY ?= docker.io/radixdlt
 
 
-.PHONY: radixdlt-nginx
+.PHONY: build
 build:
 	docker build \
 		-t $(REGISTRY)/radixdlt-nginx:$(DOCKER_TAG) \
