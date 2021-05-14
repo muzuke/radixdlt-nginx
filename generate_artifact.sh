@@ -21,6 +21,8 @@ for node_type in full_node archive_node;do
   mv ${PWD}/nginx.conf ${PWD}/$nginx_file_name
   #Remove nginx user
   sed -i "s|user nginx;|include \/etc\/nginx\/modules-enabled\/*.conf;|g" ${PWD}/$nginx_file_name
+  #Change /dev/stdout
+  sed -i "s|\/dev\/stdout|\/var\/log\/nginx\/access.log|g" ${PWD}/$nginx_file_name
 
   if [[ "$node_type" == "full_node" ]]; then
     zip -r radixdlt-nginx-fullnode-conf.zip conf.d/ nginx-fullnode.conf
