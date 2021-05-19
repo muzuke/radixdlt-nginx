@@ -45,6 +45,7 @@ jobs:
   docker:
     name: Build and publish Docker image
     runs-on: ubuntu-latest
+    environment: publish-dockerhub
     steps:
       - name: Login to Dockerhub
         uses: docker/login-action@v1
