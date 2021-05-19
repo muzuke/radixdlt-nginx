@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - master
+      - test-env
 name: Test environment
 
 jobs:
