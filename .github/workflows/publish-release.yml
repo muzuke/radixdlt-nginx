@@ -1,5 +1,5 @@
 name: publish-release
-
+#This event is triggered when a release is created in radixdlt/radixdlt
 on:
   repository_dispatch:
     types: [start_release]
