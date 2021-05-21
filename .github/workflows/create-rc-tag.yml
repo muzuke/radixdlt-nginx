@@ -15,7 +15,6 @@ jobs:
           access_token: ${{ github.token }}
   publish:
     runs-on: ubuntu-latest
-    environment: publish-dockerhub
     name: Add tag
     steps:
       - name: Get release name from ${{ github.event.client_payload.ref }}
