@@ -29,7 +29,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Tag snapshot
-        uses: simpleactions/create-tag@1
+        uses: simpleactions/create-tag@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ env.RC_TAG }}
