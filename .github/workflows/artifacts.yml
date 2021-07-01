@@ -6,6 +6,9 @@ on:
       - test-artifacts*
   release:
     types: [ published ]
+  repository_dispatch:
+    types: [ rc_tag ]
+
 
 name: Build artifacts
 
@@ -14,6 +17,7 @@ jobs:
     name: Upload nginx configuration artifacts
     runs-on: ubuntu-latest
     environment: AWS_ARTIFACT
+    if:  "${{ github.event.action != 'rc_tag' }}"
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -102,6 +106,14 @@ jobs:
                     BRANCH_NAME_WITH_HYPENS=$(echo ${GITHUB_REF##*/} | sed 's/\//-/g')
                     COMMIT=$(git log -1 --format=%h )
                     NGINX_IMG_VERSION=$BRANCH_NAME_WITH_HYPENS-$COMMIT
+                elif [[ ! -z $1 ]] && [[ "$1" == "repository_dispatch" ]];then
+                  if [[ ${{ github.event.action}} == "rc_tag" ]];then
+                     release_branch_ref=${{ github.event.client_payload.ref }}
+                     release_version=${release_branch_ref/refs\/heads\/release\//}
+                     echo "Release version: $release_version"
+                     rc_tag="$release_version-rc.1"
+                     NGINX_IMG_VERSION=$rc_tag
+                  fi
                 fi
               }
 
