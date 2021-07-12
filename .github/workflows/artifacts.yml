@@ -92,6 +92,7 @@ jobs:
           GH_EVENT_NAME="${{ github.event_name }}"
           BRANCH_REF="${{github.ref}}"
           GIT_HUB_RELEASE_TAG=${{ github.event.release.tag_name }}
+          GIT_HUB_ACTION=${{ github.event.action}}
           set_image_version(){
               # $1 github event name , $2 branch ref value, $3 github release tag
 
@@ -107,7 +108,7 @@ jobs:
                     COMMIT=$(git log -1 --format=%h )
                     NGINX_IMG_VERSION=$BRANCH_NAME_WITH_HYPENS-$COMMIT
                 elif [[ ! -z $1 ]] && [[ "$1" == "repository_dispatch" ]];then
-                  if [[ ${{ github.event.action}} == "rc_tag" ]];then
+                  if [[ ! -z $GIT_HUB_ACTION ]] && [[ $GIT_HUB_ACTION == "rc_tag" ]];then
                      release_branch_ref=${{ github.event.client_payload.ref }}
                      release_version=${release_branch_ref/refs\/heads\/release\//}
                      echo "Release version: $release_version"
