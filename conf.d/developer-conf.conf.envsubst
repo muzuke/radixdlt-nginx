@@ -1,0 +1,12 @@
+location /developer {
+    auth_basic_user_file /etc/nginx/secrets/htpasswd.admin;
+    auth_basic on;
+    limit_except GET {
+        deny all;
+    }
+    proxy_pass ${DOLLAR}node;
+    include conf.d/enable-caching-proxy.conf;
+    proxy_cache radixdlt_hot;
+    proxy_cache_valid 200 1s;
+    include conf.d/enable-cors.conf;
+}

@@ -87,7 +87,10 @@ if [[ "$RADIXDLT_ENABLE_METRICS_API" == true || "$RADIXDLT_ENABLE_METRICS_API" =
   DOLLAR='$' envsubst </etc/nginx/conf.d/${conf_file}.conf.envsubst >/etc/nginx/conf.d/${conf_file}.conf
 fi
 
-
+#Developer endpoints need to be avaiable for all nodes and networks
+conf_file="developer-conf"
+export INCLUDE_RADIXDLT_ENABLE_DEVELOPER_API="include conf.d/${conf_file}.conf;"
+DOLLAR='$' envsubst </etc/nginx/conf.d/${conf_file}.conf.envsubst >/etc/nginx/conf.d/${conf_file}.conf
 
 DOLLAR='$' envsubst </etc/nginx/conf.d/nginx.conf.envsubst >/etc/nginx/nginx.conf
 
