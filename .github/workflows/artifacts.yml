@@ -99,9 +99,6 @@ jobs:
                 if [[ ! -z $1 ]] && [[ "$1" == "release" ]];then
                   echo "Workflow triggered by a release event"
                   NGINX_IMG_VERSION="$3"
-                elif [[ ! -z $2 ]] && [[ "$2" == "refs/heads/master" ]];then
-                  echo "Merge to master"
-                  NGINX_IMG_VERSION="development-latest"
                 elif [[ ! -z $1  ]] && [[ "$1" == "push" ]];then
                     echo "push event"
                     BRANCH_NAME_WITH_HYPENS=$(echo ${GITHUB_REF##*/} | sed 's/\//-/g')
@@ -115,6 +112,9 @@ jobs:
                      rc_tag="$release_version-rc.1"
                      NGINX_IMG_VERSION=$rc_tag
                   fi
+                else
+                  echo "Merge to master"
+                  NGINX_IMG_VERSION="development-latest"
                 fi
               }
 
