@@ -1,6 +1,6 @@
 location /archive {
     auth_basic off;
-    limit_req zone=perip burst=100 nodelay;
+    limit_req zone=perip burst=3 nodelay;
     proxy_pass ${DOLLAR}clientAPI;
     include conf.d/enable-websocket.conf;
     include conf.d/enable-cors.conf;
