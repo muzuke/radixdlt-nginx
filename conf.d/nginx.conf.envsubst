@@ -21,7 +21,7 @@ stream {
 http {
     include /etc/nginx/mime.types;
     default_type application/octet-stream;
-    map $status $loggable {
+    map ${DOLLAR}status ${DOLLAR}loggable {
         404 0;
         499 1;
         default 0;
