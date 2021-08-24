@@ -21,11 +21,7 @@ stream {
 http {
     include /etc/nginx/mime.types;
     default_type application/octet-stream;
-    map ${DOLLAR}status ${DOLLAR}loggable {
-        404 0;
-        499 1;
-        default 0;
-     }
+
 
     log_format json_analytics escape=json '{'
                                 '"msec": "${DOLLAR}msec", ' # request unixtime in seconds with a milliseconds resolution
@@ -98,7 +94,12 @@ http {
         listen 443 ssl;
         server_name localhost;
                 # log the bad requests:
-        access_log /var/log/bad_actors/access_bad.log json_analytics if=$loggable;
+        map ${DOLLAR}status ${DOLLAR}loggable {
+                404 0;
+                499 1;
+                default 0;
+         }
+        access_log /var/log/bad_actors/access_bad.log json_analytics if=${DOLLAR}loggable;
         access_log /dev/stdout json_analytics;
 
         # Basic Auth
