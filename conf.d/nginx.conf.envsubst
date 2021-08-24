@@ -74,7 +74,7 @@ http {
     # https://gist.github.com/v0lkan/90fcb83c86918732b894
     client_body_timeout 12;
     client_header_timeout 12;
-    keepalive_timeout 0;
+    keepalive_timeout 15;
     send_timeout 10;
     # allow the server to close connection on non responding client, this will free up memory
     reset_timedout_connection on;
