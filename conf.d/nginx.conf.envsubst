@@ -5,7 +5,7 @@ error_log stderr notice;
 pid /var/run/nginx.pid;
 
 events {
-    worker_connections 20000;
+    worker_connections 65535;
 }
 
 stream {
