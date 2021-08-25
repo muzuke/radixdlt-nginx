@@ -110,7 +110,8 @@ http {
     resolver_timeout 600s; 
 
     include conf.d/enable-tls.conf;
-
+    include conf.d/cloudflare-allow.conf
+    deny all;
     # configure proxy cache zones
     proxy_cache_path /var/cache/nginx/radixdlt-hot levels=1:2 keys_zone=radixdlt_hot:1m max_size=100m inactive=60m use_temp_path=off;
 
