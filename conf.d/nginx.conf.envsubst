@@ -127,8 +127,8 @@ http {
         access_log /var/log/bad_actors/access_bad.log json_analytics if=${DOLLAR}loggable;
         access_log /dev/stdout json_analytics;
 
-        include conf.d/cloudflare-allow.conf;
-        deny all;
+        #include conf.d/cloudflare-allow.conf;
+        #deny all;
 
         # Basic Auth
         auth_basic_user_file /etc/nginx/secrets/htpasswd.admin;
