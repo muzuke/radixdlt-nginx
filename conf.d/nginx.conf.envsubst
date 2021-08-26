@@ -99,7 +99,13 @@ http {
     # https://gist.github.com/v0lkan/90fcb83c86918732b894
     client_body_timeout 12;
     client_header_timeout 12;
+    # How long an idle keepalive connection remains open.
     keepalive_timeout 15;
+    # Number of requests a client can make over a single keepalive connection. (default is 100)
+    keepalive_requests 100;
+    proxy_http_version 1.1;
+    proxy_set_header Connection "";
+
     send_timeout 10;
     # allow the server to close connection on non responding client, this will free up memory
     reset_timedout_connection on;
