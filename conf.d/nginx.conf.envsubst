@@ -102,7 +102,7 @@ http {
     # How long an idle keepalive connection remains open.
     keepalive_timeout 15;
     # Number of requests a client can make over a single keepalive connection. (default is 100)
-    keepalive_requests 100;
+    keepalive_requests 500;
     proxy_http_version 1.1;
     proxy_set_header Connection "";
 
@@ -122,8 +122,8 @@ http {
 
     # configure rate limit zones
     include conf.d/enable-rate-limits.conf;
-    limit_req zone=perip burst=20 nodelay;
-    limit_req zone=perserver burst=20 nodelay;
+    limit_req zone=perip burst=25 nodelay;
+    limit_req zone=perserver burst=25 nodelay;
 
     error_log /var/log/bad_actors/error_log notice;
     server {
