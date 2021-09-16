@@ -15,6 +15,7 @@ for node_type in full_node archive_node;do
     nginx_file_name="nginx-fullnode.conf"
   elif [[ "$node_type" == "archive_node" ]]; then
     export RADIXDLT_ARCHIVE_API_ENABLE=true
+    export RADIXDLT_CONSTRUCTION_API_ENABLE=true
     nginx_file_name="nginx-archive.conf"
   fi
   sed '1,/# nginx configuration/!d' docker-entrypoint.sh  | sed 's/\/etc\/nginx/${PWD}/g' | bash
