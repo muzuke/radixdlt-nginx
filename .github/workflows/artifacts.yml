@@ -1,8 +1,7 @@
 on:
   push:
     branches:
-#      - master
-      - fix-artifact-publishing
+      - master
     tags:
       - test-artifacts*
   release:
@@ -114,7 +113,7 @@ jobs:
                      NGINX_IMG_VERSION=$rc_tag
                   fi
                 fi
-                if [[ "$BRANCH_NAME_WITH_HYPENS" == "fix-artifact-publishing" ]];then
+                if [[ "$BRANCH_NAME_WITH_HYPENS" == "master" ]];then
                   NGINX_IMG_TAGS="radixdlt/radixdlt-nginx:$NGINX_IMG_VERSION,radixdlt/radixdlt-nginx:development-latest"
                 else
                   NGINX_IMG_TAGS=radixdlt/radixdlt-nginx:$NGINX_IMG_VERSION
