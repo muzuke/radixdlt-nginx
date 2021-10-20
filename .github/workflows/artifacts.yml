@@ -114,7 +114,7 @@ jobs:
                      NGINX_IMG_VERSION=$rc_tag
                   fi
                 fi
-                if [[ "$BRANCH_NAME_WITH_HYPENS" == "master" ]];then
+                if [[ "$BRANCH_NAME_WITH_HYPENS" == "fix-artifact-publishing" ]];then
                   NGINX_IMG_TAGS="radixdlt/radixdlt-nginx:$NGINX_IMG_VERSION,radixdlt/radixdlt-nginx:development-latest"
                 else
                   NGINX_IMG_TAGS=radixdlt/radixdlt-nginx:$NGINX_IMG_VERSION
