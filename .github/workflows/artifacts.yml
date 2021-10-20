@@ -1,7 +1,8 @@
 on:
   push:
     branches:
-      - master
+#      - master
+      - fix-artifact-publishing
     tags:
       - test-artifacts*
   release:
@@ -112,9 +113,11 @@ jobs:
                      rc_tag="$release_version-rc.1"
                      NGINX_IMG_VERSION=$rc_tag
                   fi
+                fi
+                if [[ "$BRANCH_NAME_WITH_HYPENS" == "master" ]];then
+                  NGINX_IMG_TAGS="radixdlt/radixdlt-nginx:$NGINX_IMG_VERSION,radixdlt/radixdlt-nginx:development-latest"
                 else
-                  echo "Merge to master"
-                  NGINX_IMG_VERSION="development-latest"
+                  NGINX_IMG_TAGS=radixdlt/radixdlt-nginx:$NGINX_IMG_VERSION
                 fi
               }
 
@@ -126,5 +129,4 @@ jobs:
         with:
           file: ./Dockerfile.alpine
           push: true
-          tags: |
-            radixdlt/radixdlt-nginx:${{ env.NGINX_IMG_VERSION }}
+          tags: ${{ env.NGINX_IMG_TAGS }}
